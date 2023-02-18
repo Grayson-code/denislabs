@@ -8,8 +8,18 @@ import { EmbedBuilder } from 'discord.js';
 })
 export class UserCommand extends Command {
 	public async messageRun(message: Message) {
-		return message.channel.send({embeds:[new EmbedBuilder().setTitle("Denis Help").setDescription(
-			`My Prefix is \`!\`, you mention me, or say hey bot to use the commands below \n`
-		).setFields([{ name: "__**Useful Commands**__", value:"➥ping - Calculates the bots ping! \n➥hardware - Shows the hardware the bot is running on \n ➥mc - Shows the status of the minecraft server \n ➥OpIran - We do not forget" }])]});
+		return message.channel.send({
+			embeds: [
+				new EmbedBuilder()
+					.setTitle('Denis Help')
+					.setDescription(`My Prefix is \`!\`, you mention me, or say hey bot to use the commands below \n`)
+					.setFields([
+						{
+							name: '__**Useful Commands**__',
+							value: '➥ping - Calculates the bots ping! \n➥hardware - Shows the hardware the bot is running on \n ➥mc - Shows the status of the minecraft server \n ➥OpIran - We do not forget'
+						}
+					])
+			]
+		});
 	}
 }

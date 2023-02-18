@@ -12,7 +12,7 @@ export class UserEvent extends Listener {
 	public run(client: Client) {
 		this.printBanner();
 		this.printStoreDebugInformation();
-		this.fetch(client)
+		this.fetch(client);
 	}
 
 	private printBanner() {
@@ -50,8 +50,8 @@ ${line03}${dev ? ` ${pad}${blc('<')}${llc('/')}${blc('>')} ${llc('DEVELOPMENT MO
 		return gray(`${last ? '└─' : '├─'} Loaded ${this.style(store.size.toString().padEnd(3, ' '))} ${store.name}.`);
 	}
 	private async fetch(client: Client) {
-		const channel = await client.channels.fetch("1076059315644928052") as TextChannel;
-		await channel.messages.fetch("1076060764860854272") as Message;
-		await client.channels.fetch("1075737408676577310");
+		const channel = (await client.channels.fetch('1076059315644928052')) as TextChannel;
+		(await channel.messages.fetch('1076060764860854272')) as Message;
+		await client.channels.fetch('1075737408676577310');
 	}
 }

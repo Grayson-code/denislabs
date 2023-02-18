@@ -20,14 +20,14 @@ const client = new SapphireClient({
 		GatewayIntentBits.GuildMessages,
 		GatewayIntentBits.Guilds,
 		GatewayIntentBits.GuildVoiceStates,
-		GatewayIntentBits.MessageContent,
+		GatewayIntentBits.MessageContent
 	],
 	partials: [Partials.Channel, Partials.Reaction, Partials.Message],
 	loadMessageCommandListeners: true,
 	presence: {
-		status: "dnd",
-		activities: [{name:"#OpIran", type: ActivityType.Watching}]
-	},
+		status: 'dnd',
+		activities: [{ name: '#OpIran', type: ActivityType.Watching }]
+	}
 });
 
 const main = async () => {

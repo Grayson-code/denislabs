@@ -22,15 +22,15 @@ export function sendLoadingMessage(message: Message): Promise<typeof message> {
 }
 
 /**
- * 
+ *
  * @param bytes The bytes you want to convert
  * @returns Bytes, KB, MB, GB, TB
  */
 
 export function bytesToSize(bytes: number): string {
-	const sizes: string[] = ['Bytes', 'KB', 'MB', 'GB', 'TB']
-	if (bytes === 0) return 'n/a'
-	const i: number = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)).toString())
-	if (i === 0) return `${bytes} ${sizes[i]}`
-	return `${(bytes / Math.pow(1024, i)).toFixed(1)} ${sizes[i]}`
+	const sizes: string[] = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+	if (bytes === 0) return 'n/a';
+	const i: number = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)).toString());
+	if (i === 0) return `${bytes} ${sizes[i]}`;
+	return `${(bytes / Math.pow(1024, i)).toFixed(1)} ${sizes[i]}`;
 }
