@@ -5,7 +5,7 @@ import { distube } from 'index';
 
 @ApplyOptions<Command.Options>({
 	description: 'A basic command',
-	aliases: ["q"]
+	aliases: ['q']
 })
 export class UserCommand extends Command {
 	public async messageRun(message: Message) {
@@ -15,14 +15,9 @@ export class UserCommand extends Command {
 		} else {
 			message.channel.send(
 				`Current queue:\n${queue.songs
-					.map(
-						(song, id) =>
-							`**${id ? id : 'Playing'}**. ${
-								song.name
-							} - \`${song.formattedDuration}\``,
-					)
+					.map((song, id) => `**${id ? id : 'Playing'}**. ${song.name} - \`${song.formattedDuration}\``)
 					.slice(0, 10)
-					.join('\n')}`,
+					.join('\n')}`
 			);
 		}
 	}
