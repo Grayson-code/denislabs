@@ -16,7 +16,7 @@ export class UserCommand extends Command {
 					.setFields([
 						{
 							name: '__**Useful Commands**__',
-							value: '➥ping - Calculates the bots ping! \n➥hardware - Shows the hardware the bot is running on\n➥music - Shows the list of music commands, and explain what they do \n ➥mc - Shows the status of the minecraft server \n ➥OpIran - We do not forget'
+							value: '➥ping - Calculates the bots ping! \n➥meme - Random memes from reddit\n➥hardware - Shows the hardware the bot is running on\n➥music - Shows the list of music commands, and explain what they do \n ➥mc - Shows the status of the minecraft server \n ➥OpIran - We do not forget'
 						}
 					])
 			]
