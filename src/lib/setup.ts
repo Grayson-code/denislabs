@@ -23,5 +23,6 @@ declare module '@skyra/env-utilities' {
 	interface Env {
 		OWNERS: ArrayString;
 		MONGO: string;
+		DISCORD_TOKEN: string;
 	}
 }
