@@ -21,11 +21,14 @@
     "@sapphire/utilities": "^3.11.0",
     "@skyra/env-utilities": "^1.1.0",
     "@types/minecraft-pinger": "^1.0.0",
+    "canvacord": "^5.4.8",
     "discord.js": "^14.7.1",
     "distube": "^4.0.3",
+    "dotenv": "^16.0.3",
     "ffmpeg-static": "^4.4.1",
     "libsodium-wrappers": "^0.7.11",
-    "minecraft-pinger": "^1.0.5"
+    "minecraft-pinger": "^1.0.5",
+    "mongoose": "^6.10.0"
   },
   "devDependencies": {
     "@sapphire/prettier-config": "^1.4.5",

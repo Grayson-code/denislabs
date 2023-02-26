@@ -5,7 +5,7 @@ import { distube } from '../../index';
 
 @ApplyOptions<Command.Options>({
 	description: 'A basic command',
-	aliases: ["q"]
+	aliases: ['q']
 })
 export class UserCommand extends Command {
 	public async messageRun(message: Message) {

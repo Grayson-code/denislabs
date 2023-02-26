@@ -49,11 +49,11 @@ export class UserEvent extends Listener {
 				this.removeReaction('1076770126122188840', messageReaction, user);
 				break;
 			case '🔫':
-				this.removeReaction('1076770185932972105', messageReaction, user)
-				break
+				this.removeReaction('1076770185932972105', messageReaction, user);
+				break;
 			case '🇱':
-				this.removeReaction('1076770257873674260', messageReaction, user)
-				break
+				this.removeReaction('1076770257873674260', messageReaction, user);
+				break;
 			default:
 				console.log(messageReaction.emoji.name);
 				console.log('your emojis got some problem');

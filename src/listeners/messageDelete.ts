@@ -1,6 +1,6 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { Listener, ListenerOptions } from '@sapphire/framework';
-import { EmbedBuilder, Message, TextChannel, AuditLogEvent } from 'discord.js';
+import { EmbedBuilder, Message, TextChannel } from 'discord.js';
 
 @ApplyOptions<ListenerOptions>({})
 export class UserEvent extends Listener {

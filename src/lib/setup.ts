@@ -22,5 +22,6 @@ colorette.createColors({ useColor: true });
 declare module '@skyra/env-utilities' {
 	interface Env {
 		OWNERS: ArrayString;
+		MONGO: string;
 	}
 }
