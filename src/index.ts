@@ -40,7 +40,8 @@ export const distube = new DisTube(client, {
 });
 
 const status = (queue: Queue) =>
-	`Volume: \`${queue.volume}%\` | Filter: \`${queue.filters.names.join(', ') || 'Off'}\` | Loop: \`${queue.repeatMode ? (queue.repeatMode === 2 ? 'All Queue' : 'This Song') : 'Off'
+	`Volume: \`${queue.volume}%\` | Filter: \`${queue.filters.names.join(', ') || 'Off'}\` | Loop: \`${
+		queue.repeatMode ? (queue.repeatMode === 2 ? 'All Queue' : 'This Song') : 'Off'
 	}\` | Autoplay: \`${queue.autoplay ? 'On' : 'Off'}\``;
 
 distube
@@ -68,17 +69,19 @@ distube
 	.on('searchCancel', (message) => message.channel.send('Searching canceled'))
 	.on('searchInvalidAnswer', (message) => message.channel.send('Invalid number of result.'))
 	.on('searchNoResult', (message) => message.channel.send('No result found!'))
-	.on('searchDone', () => { });
+	.on('searchDone', () => {});
 
 const main = async () => {
 	try {
 		client.logger.info('Logging in');
 		await client.login();
 		client.logger.info('logged in');
-		await mongoose.connect(process.env.MONGO, { 
-			keepAlive: true
-		 }).then(() => client.logger.info('Logged into MongoDB'))
-		 .catch((e) => client.logger.error(e));
+		await mongoose
+			.connect(process.env.MONGO, {
+				keepAlive: true
+			})
+			.then(() => client.logger.info('Logged into MongoDB'))
+			.catch((e) => client.logger.error(e));
 	} catch (error) {
 		client.logger.fatal(error);
 		client.destroy();
