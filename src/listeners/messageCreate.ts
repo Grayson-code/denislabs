@@ -38,8 +38,8 @@ export class UserEvent extends Listener {
 			await data.save();
 
 			const embed = new EmbedBuilder()
-				.setTitle('You have hit a new milestone!')
-				.setDescription(`<@${message.author.id}>, you have reached ${data.level}`);
+				.setColor("Yellow")
+				.setDescription(`<@${message.author.id}>, you have reached level ${data.level}`);
 
 			message.channel.send({ embeds: [embed] });
 		} else {
