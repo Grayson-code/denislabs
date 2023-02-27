@@ -17,7 +17,7 @@ export class UserEvent extends Listener {
 					_id: message.author.id,
 					level: 0,
 					xp: 0,
-					coins: 0,
+					coins: 0, 
 				});
 			}
 		});
