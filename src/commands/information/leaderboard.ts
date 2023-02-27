@@ -2,12 +2,15 @@ import { ApplyOptions } from '@sapphire/decorators';
 import { Command } from '@sapphire/framework';
 import xpSchema from '../../db/xpSchema';
 import { EmbedBuilder, type Message } from 'discord.js';
+import { send } from '@sapphire/plugin-editable-commands';
+import { sendLoadingMessage } from '../../lib/utils';
 
 @ApplyOptions<Command.Options>({
 	description: 'A basic command'
 })
 export class UserCommand extends Command {
 	public async messageRun(message: Message) {
+		await sendLoadingMessage(message)
 		let text = '';
 
 		const embed1 = new EmbedBuilder().setColor('Red').setDescription(':white_check_mark: No one is in the leaderboard ????');
@@ -20,7 +23,7 @@ export class UserCommand extends Command {
 			})
 			.limit(10);
 
-		if (!res) return message.channel.send({ embeds: [embed1] });
+		if (!res) await send(message, { embeds: [embed1] });
 		this.container.logger.debug(res[1]);
 
 		for (let i = 0; i < res.length; i++) {
@@ -39,6 +42,6 @@ export class UserCommand extends Command {
 			.setTimestamp()
 			.setFooter({ text: 'XP Leaderboard' });
 
-		return message.channel.send({ embeds: [embed2] });
+		return await send(message, { embeds: [embed2] });
 	}
 }

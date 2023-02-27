@@ -3,6 +3,8 @@ import { Command, Args } from '@sapphire/framework';
 import xpSchema from '../../db/xpSchema';
 import { AttachmentBuilder, EmbedBuilder, type Message } from 'discord.js';
 import cavacord from 'canvacord';
+import { send } from '@sapphire/plugin-editable-commands';
+import { sendLoadingMessage } from '../../lib/utils';
 
 @ApplyOptions<Command.Options>({
 	description: 'A basic command',
@@ -10,12 +12,13 @@ import cavacord from 'canvacord';
 })
 export class UserCommand extends Command {
 	public async messageRun(message: Message, args: Args) {
+		await sendLoadingMessage(message)
 		let user = await args.pick('member').catch(() => message.member);
 
 		const res = await xpSchema.findOne({ _id: user!.id });
 		const embed = new EmbedBuilder().setColor('Blue').setDescription(`:white_check_mark: <@${user}> has not gained any xp.`);
 
-		if (!res) return message.channel.send({ embeds: [embed] });
+		if (!res) return send(message, { embeds: [embed] });
 
 		const requiredXP = res.level * res.level * 20 + 20;
 
@@ -35,6 +38,6 @@ export class UserCommand extends Command {
 
 		const embed2 = new EmbedBuilder().setColor('Green').setTitle(`${user!.user.username}'s Level / Rank`).setImage('attachment://rank.png');
 
-		return await message.channel.send({ embeds: [embed2], files: [attachment] });
+		return await send(message, { embeds: [embed2], files: [attachment] });
 	}
 }
