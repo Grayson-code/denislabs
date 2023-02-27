@@ -28,7 +28,7 @@ const client = new SapphireClient({
 	presence: {
 		status: 'dnd',
 		activities: [{ name: '#OpIran', type: ActivityType.Watching }]
-	}
+	},
 });
 
 export const distube = new DisTube(client, {
@@ -74,7 +74,7 @@ distube
 const main = async () => {
 	try {
 		client.logger.info('Logging in');
-		await client.login();
+		await client.login(process.env.DISCORD_TOKEN);
 		client.logger.info('logged in');
 		await mongoose
 			.connect(process.env.MONGO, {
@@ -88,5 +88,4 @@ const main = async () => {
 		process.exit(1);
 	}
 };
-
 main();
