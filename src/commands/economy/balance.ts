@@ -18,7 +18,7 @@ export class UserCommand extends Command {
 
 		const embed = new EmbedBuilder()
 		.setTitle(`${message.author.id}'s Balance`)
-		.setDescription(`**Balance: ${res.coins}`)
+		.setDescription(`<:pepecoin:1079615867538641057> **Balance**: ${res.coins}`)
 		.setColor("Grey");
 
 		return await send(message, {embeds: [embed]});
