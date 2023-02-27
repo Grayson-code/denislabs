@@ -1,7 +1,7 @@
 import { sendLoadingMessage } from '#lib/utils';
 import { ApplyOptions } from '@sapphire/decorators';
 import { Command } from '@sapphire/framework';
-import xpSchema from 'db/xpSchema';
+import xpSchema from '../../db/xpSchema';
 import { EmbedBuilder, Message } from 'discord.js';
 import { send } from '@sapphire/plugin-editable-commands';
 @ApplyOptions<Command.Options>({
