@@ -12,7 +12,7 @@ export class UserCommand extends Command {
 	public async messageRun(message: Message, args: Args) {
 		let user = await args.pick('member').catch(() => message.member);
 
-		const res = await xpSchema.findOne({ _xp: user!.id });
+		const res = await xpSchema.findOne({ _id: user!.id });
 		const embed = new EmbedBuilder().setColor('Blue').setDescription(`:white_check_mark: <@${user}> has not gained any xp.`);
 
 		if (!res) return message.channel.send({ embeds: [embed] });
