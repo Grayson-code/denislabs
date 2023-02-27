@@ -16,12 +16,14 @@ export class UserEvent extends Listener {
 				xpSchema.create({
 					_id: message.author.id,
 					level: 0,
-					xp: 0
+					xp: 0,
+					coins: 0,
 				});
 			}
 		});
 
 		const give = 1;
+		const giveCoins = 1;
 
 		const data = await xpSchema.findOne({ _id: message.author.id });
 
@@ -31,6 +33,7 @@ export class UserEvent extends Listener {
 
 		if (data.xp + give >= requiredXP) {
 			data.xp += give;
+			data.coins += giveCoins;
 			data.level += 1;
 			await data.save();
 
@@ -41,6 +44,7 @@ export class UserEvent extends Listener {
 			message.channel.send({ embeds: [embed] });
 		} else {
 			data.xp += give;
+			data.coins +=giveCoins;
 			data.save();
 		}
 	}

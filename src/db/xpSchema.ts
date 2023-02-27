@@ -17,6 +17,10 @@ const schema = new mongoose.Schema({
 	level: {
 		type: Number,
 		required: true
+	},
+	coins: {
+		type: Number,
+		required: true
 	}
 });
 
