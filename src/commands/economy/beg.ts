@@ -6,7 +6,9 @@ import xpSchema from '../../db/xpSchema';
 import type { Message } from 'discord.js';
 
 @ApplyOptions<Command.Options>({
-	description: 'A basic command'
+	description: 'A basic command',
+	cooldownDelay: 120_000,
+	cooldownFilteredUsers: [process.env.OWNERS]
 })
 export class UserCommand extends Command {
 	public async messageRun(message: Message) {
