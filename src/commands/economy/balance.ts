@@ -1,4 +1,4 @@
-import { sendLoadingMessage } from '#lib/utils';
+import { sendLoadingMessage } from '../../lib/utils';
 import { ApplyOptions } from '@sapphire/decorators';
 import { Command } from '@sapphire/framework';
 import xpSchema from '../../db/xpSchema';
