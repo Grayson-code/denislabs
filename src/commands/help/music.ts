@@ -10,7 +10,7 @@ export class UserCommand extends Command {
 		const embed = new EmbedBuilder()
 			.setTitle('Music Commands 🎵')
 			.setDescription(
-				'play - Starts playing the song requested, if already a song is playing the requested song is added to the queue, Eg:`!p Guantanamo'
+				'play - Starts playing the song requested, if already a song is playing the requested song is added to the queue, Eg:`!p Guantanamo`'
 			)
 			.setFields([
 				{ name: 'Leave', value: 'Stops playing, deletes the queue and leaves the vc, Eg:`!leave` ' },

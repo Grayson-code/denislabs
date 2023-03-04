@@ -1,4 +1,4 @@
-import { sendLoadingMessage } from '#lib/utils';
+import { sendLoadingMessage } from '../../lib/utils';
 import { ApplyOptions } from '@sapphire/decorators';
 import { Command } from '@sapphire/framework';
 import xpSchema from '../../db/xpSchema';
@@ -17,7 +17,7 @@ export class UserCommand extends Command {
 		if (!res) return send(message, {content: "We have encountered a error, please run the command again." });
 
 		const embed = new EmbedBuilder()
-		.setTitle(`${message.member}'s Balance`)
+		.setTitle(`${message.member?.displayName}'s Balance`)
 		.setDescription(`<:pepecoin:1079615867538641057> **Balance**: ${res.coins}`)
 		.setColor("Grey");
 

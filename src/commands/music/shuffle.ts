@@ -1,9 +1,9 @@
-import { sendLoadingMessage } from '../../lib/utils';
 import { ApplyOptions } from '@sapphire/decorators';
 import { Command } from '@sapphire/framework';
-import { send } from '@sapphire/plugin-editable-commands';
 import type { Message } from 'discord.js';
 import { player } from '../../index';
+import { sendLoadingMessage } from '../../lib/utils';
+import { send } from '@sapphire/plugin-editable-commands';
 
 @ApplyOptions<Command.Options>({
 	description: 'A basic command'
@@ -15,10 +15,11 @@ export class UserCommand extends Command {
 		const queue = player.getQueue(message.guild?.id!);
 
 		if (!queue || !queue.playing) return send(message, {content:"❌ | Nothing is playing right now!"});
-		const currentTrack = queue.current;
-		const success = queue.skip();
+
+		await queue.shuffle();
+
         return void send(message, {
-            content: success ? `✅ | Skipped **${currentTrack}**!` : '❌ | Something went wrong!'
+            content: `✅ | Queue has been shuffled!`
         });
 	}
 }
