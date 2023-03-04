@@ -1,21 +1,46 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { Args, Command } from '@sapphire/framework';
-import type { Message, TextChannel } from 'discord.js';
-import { distube } from '../../index';
+import type { Message } from 'discord.js';
+import { player } from '../../index';
+import { QueryType } from 'discord-player';
+import { send } from '@sapphire/plugin-editable-commands';
+import { sendLoadingMessage } from '../../lib/utils';
 
 @ApplyOptions<Command.Options>({
-	description: 'A basic command',
-	aliases: ['p']
+	description: 'A basic command'
 })
+/**
+ * TODO: Fix some bugs!
+ */
 export class UserCommand extends Command {
 	public async messageRun(message: Message, args: Args) {
-		if (!message.member?.voice.channel) return message.channel.send('You have to be in a voice channel to perform this command.');
-		const query = await args.rest('string');
-		if (!query) return message.channel.send("You haven't given any songs to play, eg usage: `!p Guantanamo`");
-		return await distube.play(message.member?.voice.channel, query, {
-			message,
-			textChannel: message.channel as TextChannel,
-			member: message.member
-		});
+		if (!message.guild) return;
+		sendLoadingMessage(message)
+		const query: any = await args.rest("string").catch(() => {  return; });
+		const search = await player.search(query, {
+			requestedBy: message.member!.user,
+			searchEngine: QueryType.AUTO,
+		}).catch(this.container.logger.debug);
+		if (!search || !search.tracks.length) return send(message, { content: "❌ | No tracks found!" });
+
+		const queue = await player.createQueue(message.guild!, {
+            ytdlOptions: {
+                filter: 'audioonly',
+                highWaterMark: 1 << 30,
+                dlChunkSize: 0,
+            },
+            metadata: message.channel
+        });
+		if (!queue.connection) {
+			await queue.connect(message.member!.voice.channel!).catch(() => {
+				player.deleteQueue(message.guild?.id!)
+				return send(message, {content: "❌ | Couldn't join your channel."})
+			});
+		};
+
+		await send(message, { content: `⏱ | Loading your ${search.playlist ? 'playlist' : 'track'}...` });
+        search.playlist ? queue.addTracks(search.tracks) : queue.addTrack(search.tracks[0]);
+        if (!queue.playing) await queue.play();
+		return;
 	}
 }
