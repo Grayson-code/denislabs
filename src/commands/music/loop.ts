@@ -12,7 +12,7 @@ export class UserCommand extends Command {
 	public async messageRun(message: Message) {
 		sendLoadingMessage(message);
 
-		const queue = player.getQueue(message.guild?.id!);
+		const queue = await player.getQueue(message.guild?.id!);
 
 		if (!queue || !queue.playing) return send(message, {content:"❌ | Nothing is playing right now!"});
 		const success = queue.setRepeatMode(QueueRepeatMode.AUTOPLAY);
