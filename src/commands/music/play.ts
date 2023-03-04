@@ -29,7 +29,8 @@ export class UserCommand extends Command {
                 highWaterMark: 1 << 30,
                 dlChunkSize: 0,
             },
-            metadata: message.channel
+            metadata: message.channel,
+			leaveOnEmpty: false,
         });
 		if (!queue.connection) {
 			await queue.connect(message.member!.voice.channel!).catch(() => {
