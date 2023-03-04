@@ -17,7 +17,8 @@ export class UserCommand extends Command {
 				{ name: '!resume', value: 'Resume the paused player. Eg:`!res' },
 				{ name: '!stop', value: 'Destroys the queue entirely. Eg:`!stop`' },
 				{name: "!shuffle", value: 'Shuffles the queue. Eg: `!sh`'},
-				{name: "!nowplaying", value: "Shows the song that is currently playing. Eg: `!np`"}
+				{name: "!nowplaying", value: "Shows the song that is currently playing. Eg: `!np`"},
+				{name: "!loop", value: "Loops the queue, if a single song is playing, loops the current song only."}
 			])
 			.setColor("Blurple");
 		return message.channel.send({ embeds: [embed] });
