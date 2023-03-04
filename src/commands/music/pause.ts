@@ -5,7 +5,8 @@ import { player } from '../../index';
 import { sendLoadingMessage } from '../../lib/utils';
 import { send } from '@sapphire/plugin-editable-commands';
 @ApplyOptions<Command.Options>({
-	description: 'A basic command'
+	description: 'A basic command',
+	aliases: ['pa']
 })
 export class UserCommand extends Command {
 	public async messageRun(message: Message) {

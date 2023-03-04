@@ -6,7 +6,8 @@ import type { Message } from 'discord.js';
 import { player } from '../../index';
 
 @ApplyOptions<Command.Options>({
-	description: 'A basic command'
+	description: 'A basic command',
+	aliases: ['sk']
 })
 export class UserCommand extends Command {
 	public async messageRun(message: Message) {
