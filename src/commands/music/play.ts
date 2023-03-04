@@ -15,6 +15,7 @@ import { sendLoadingMessage } from '../../lib/utils';
 export class UserCommand extends Command {
 	public async messageRun(message: Message, args: Args) {
 		if (!message.guild) return;
+		if (!message.member?.voice.channel) return;
 		sendLoadingMessage(message)
 		const query: any = await args.rest("string").catch(() => {  return; });
 		const search = await player.search(query, {
