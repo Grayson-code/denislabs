@@ -1,6 +1,6 @@
 {
   "name": "theorphanage-bot",
-  "version": "1.3.0",
+  "version": "2.1",
   "main": "dist/index.js",
   "author": "NorthernStar",
   "license": "MIT",

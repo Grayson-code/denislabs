@@ -8,17 +8,16 @@ import { EmbedBuilder, type Message } from 'discord.js';
 export class UserCommand extends Command {
 	public async messageRun(message: Message) {
 		const embed = new EmbedBuilder()
-			.setTitle('Music Commands 🎵')
-			.setDescription(
-				'play - Starts playing the song requested, if already a song is playing the requested song is added to the queue, Eg:`!p Guantanamo`'
-			)
+			.setTitle('🎵 | Music Commands')
 			.setFields([
-				{ name: 'Leave', value: 'Stops playing, deletes the queue and leaves the vc, Eg:`!leave` ' },
-				{ name: 'Pause', value: 'Pauses the current song, Eg:`!pause`' },
-				{ name: 'Resume', value: 'Resumes the the current song, Eg:`!resume`' },
-				{ name: 'Queue', value: 'Shows the current queue of songs, Eg:`!q`' },
-				{ name: 'Skip', value: 'Skips the current song, and if there is another song in queue it will play it, Eg:`!skip' },
-				{ name: 'Repeat', value: 'Loops the queue, Eg:`!repeat`' }
+				{ name: '!play [music you want to play]', value: 'Starts playing a song, playlist, and if already playing adds the song or playlist to the queue. Eg: `!play guantanamo` or `!play https://open.spotify.com/playlist/xyz`' },
+				{ name: '!skip', value: 'Skips the current song that is playing. Eg: `!skip`' },
+				{ name: '!queue [optiona, the page number]', value: 'Shows the current queue. Eg: `!queue` or `!q 1`' },
+				{ name: '!pause', value: 'Pauses the current playing song. Eg:`!p`' },
+				{ name: '!resume', value: 'Resume the paused player. Eg:`!res' },
+				{ name: '!stop', value: 'Destroys the queue entirely. Eg:`!stop`' },
+				{name: "!shuffle", value: 'Shuffles the queue. Eg: `!sh`'},
+				{name: "!nowplaying", value: "Shows the song that is currently playing. Eg: `!np`"}
 			]);
 		return message.channel.send({ embeds: [embed] });
 	}
