@@ -12,10 +12,12 @@ export class UserCommand extends Command {
 	public async messageRun(message: Message) {
 		sendLoadingMessage(message);
 
-		const queue = await player.getQueue(message.guild?.id!);
+		const queue = player.nodes.get(message.guild?.id!);
 
-		if (!queue || !queue.playing) return send(message, {content:"❌ | Nothing is playing right now!"});
-		const success = queue.setRepeatMode(QueueRepeatMode.AUTOPLAY);
-		return void send(message, { content: success ? `✔️ | Updated loop mode!` : '❌ | Could not update loop mode!' });
+		if (!queue || !queue.isPlaying()) return send(message, {content:"❌ | Nothing is playing right now!"});
+
+		queue.setRepeatMode(QueueRepeatMode.AUTOPLAY);
+		
+		return send(message, { content: `✔️ | Updated loop mode!`});
 	}
 }

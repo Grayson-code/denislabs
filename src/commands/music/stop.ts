@@ -12,10 +12,10 @@ export class UserCommand extends Command {
 	public async messageRun(message: Message) {
 		sendLoadingMessage(message);
 
-		const queue = player.getQueue(message.guild?.id!);
+		const queue = player.nodes.get(message.guild?.id!);
 
-		if (!queue || !queue.playing) return send(message, {content:"❌ | Nothing is playing right now!"});
-		queue.destroy()
+		if (!queue || !queue.isPlaying) return send(message, {content:"❌ | Nothing is playing right now!"});
+		queue.delete()
         return void send(message, {
             content: `🛑 | Stopped the player!`
         });

@@ -13,11 +13,11 @@ export class UserCommand extends Command {
 	public async messageRun(message: Message) {
 		sendLoadingMessage(message);
 
-		const queue = player.getQueue(message.guild?.id!);
+		const queue = await player.nodes.get(message.guild?.id!);
 
-		if (!queue || !queue.playing) return send(message, {content:"❌ | Nothing is playing right now!"});
-		const currentTrack = queue.current;
-		const success = queue.skip();
+		if (!queue || !queue.isPlaying) return send(message, {content:"❌ | Nothing is playing right now!"});
+		const currentTrack = queue.currentTrack;
+		const success = queue.node.skip();
         return void send(message, {
             content: success ? `✅ | Skipped **${currentTrack}**!` : '❌ | Something went wrong!'
         });
