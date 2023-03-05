@@ -29,7 +29,7 @@ const client = new SapphireClient({
 	presence: {
 		status: 'dnd',
 		activities: [{ name: '#OpIran', type: ActivityType.Watching }]
-	},
+	}
 });
 
 export const player = new Player(client);

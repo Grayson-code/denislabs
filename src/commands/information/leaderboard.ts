@@ -10,7 +10,7 @@ import { sendLoadingMessage } from '../../lib/utils';
 })
 export class UserCommand extends Command {
 	public async messageRun(message: Message) {
-		await sendLoadingMessage(message)
+		await sendLoadingMessage(message);
 		let text = '';
 
 		const embed1 = new EmbedBuilder().setColor('Red').setDescription(':white_check_mark: No one is in the leaderboard ????');

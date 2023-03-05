@@ -15,8 +15,8 @@ export class UserCommand extends Command {
 
 		const queue = await player.nodes.get(message.guild?.id!);
 
-        if (!queue || !queue.isPlaying) return void send(message, { content: '❌ | No music is being played!' });
-        const paused = queue.node.resume();
-        return send(message, { content: paused ? '⏸ | Paused!' : '❌ | Something went wrong!'});
+		if (!queue || !queue.isPlaying) return void send(message, { content: '❌ | No music is being played!' });
+		const paused = queue.node.resume();
+		return send(message, { content: paused ? '⏸ | Paused!' : '❌ | Something went wrong!' });
 	}
 }

@@ -8,6 +8,6 @@ import type { Message } from 'discord.js';
 })
 export class UserCommand extends Command {
 	public async messageRun(message: Message) {
-		if (Math.random() * 10 !== 7) return send(message, { content: "Y"})
+		if (Math.random() * 10 !== 7) return send(message, { content: 'Y' });
 	}
 }

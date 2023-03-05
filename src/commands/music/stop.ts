@@ -14,10 +14,10 @@ export class UserCommand extends Command {
 
 		const queue = player.nodes.get(message.guild?.id!);
 
-		if (!queue || !queue.isPlaying) return send(message, {content:"❌ | Nothing is playing right now!"});
-		queue.delete()
-        return void send(message, {
-            content: `🛑 | Stopped the player!`
-        });
+		if (!queue || !queue.isPlaying) return send(message, { content: '❌ | Nothing is playing right now!' });
+		queue.delete();
+		return void send(message, {
+			content: `🛑 | Stopped the player!`
+		});
 	}
 }

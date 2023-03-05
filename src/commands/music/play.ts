@@ -17,30 +17,31 @@ export class UserCommand extends Command {
 	public async messageRun(message: Message, args: Args) {
 		if (!message.guild) return;
 		if (!message.member?.voice.channel) return;
-		sendLoadingMessage(message)
+		sendLoadingMessage(message);
 
-		const query: any = await args.rest("string").catch(() => { return; });
-		
+		const query: any = await args.rest('string').catch(() => {
+			return;
+		});
+
 		const queue = player.nodes.create(message.guild, {
 			metadata: {
 				channel: message.channel,
 				client: message.guild.members.me,
-				requestedBy: message.member.user,
+				requestedBy: message.member.user
 			},
 			selfDeaf: true,
-			volume: 80,
 			leaveOnEmpty: true,
 			leaveOnEmptyCooldown: 300000,
 			leaveOnEnd: true,
-			leaveOnEndCooldown: 300000,
+			leaveOnEndCooldown: 300000
 		});
-		const search = await player.search(query, { searchEngine: QueryType.AUTO })
-		if (!search || !search.tracks.length) return send(message, { content: "❌ | No tracks found!" });
-		
-		if (!queue.connection) await queue.connect(message.member.voice!.channel);
-		queue.addTrack(search.tracks)
+		const search = await player.search(query, { searchEngine: QueryType.AUTO });
+		if (!search || !search.tracks.length) return send(message, { content: '❌ | No tracks found!' });
 
-		await queue.node.play()
+		if (!queue.connection) await queue.connect(message.member.voice!.channel);
+		queue.addTrack(search.tracks);
+
+		await queue.node.play();
 
 		return await send(message, { content: `⏱ | Loading your ${search.playlist ? 'playlist' : 'track'}...` });
 	}

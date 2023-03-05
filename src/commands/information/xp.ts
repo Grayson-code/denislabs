@@ -12,7 +12,7 @@ import { sendLoadingMessage } from '../../lib/utils';
 })
 export class UserCommand extends Command {
 	public async messageRun(message: Message, args: Args) {
-		await sendLoadingMessage(message)
+		await sendLoadingMessage(message);
 		let user = await args.pick('member').catch(() => message.member);
 
 		const res = await xpSchema.findOne({ _id: user!.id });

@@ -14,10 +14,10 @@ export class UserCommand extends Command {
 
 		const queue = player.nodes.get(message.guild?.id!);
 
-		if (!queue || !queue.isPlaying()) return send(message, {content:"❌ | Nothing is playing right now!"});
+		if (!queue || !queue.isPlaying()) return send(message, { content: '❌ | Nothing is playing right now!' });
 
 		queue.setRepeatMode(QueueRepeatMode.AUTOPLAY);
-		
-		return send(message, { content: `✔️ | Updated loop mode!`});
+
+		return send(message, { content: `✔️ | Updated loop mode!` });
 	}
 }

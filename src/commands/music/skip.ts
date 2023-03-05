@@ -15,11 +15,11 @@ export class UserCommand extends Command {
 
 		const queue = await player.nodes.get(message.guild?.id!);
 
-		if (!queue || !queue.isPlaying) return send(message, {content:"❌ | Nothing is playing right now!"});
+		if (!queue || !queue.isPlaying) return send(message, { content: '❌ | Nothing is playing right now!' });
 		const currentTrack = queue.currentTrack;
 		const success = queue.node.skip();
-        return void send(message, {
-            content: success ? `✅ | Skipped **${currentTrack}**!` : '❌ | Something went wrong!'
-        });
+		return void send(message, {
+			content: success ? `✅ | Skipped **${currentTrack}**!` : '❌ | Something went wrong!'
+		});
 	}
 }
