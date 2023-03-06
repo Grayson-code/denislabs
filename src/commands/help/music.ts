@@ -1,6 +1,6 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { Command } from '@sapphire/framework';
-import { EmbedBuilder, type Message } from 'discord.js';
+import { EmbedBuilder, type Message, type TextChannel } from 'discord.js';
 
 @ApplyOptions<Command.Options>({
 	description: 'A basic command'
@@ -24,6 +24,6 @@ export class UserCommand extends Command {
 				{ name: '!loop', value: 'Loops the queue, if a single song is playing, loops the current song only.' }
 			])
 			.setColor('Blurple');
-		return message.channel.send({ embeds: [embed] });
+		return (message.channel as TextChannel).send({ embeds: [embed] });
 	}
 }

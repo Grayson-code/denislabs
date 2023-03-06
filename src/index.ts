@@ -39,6 +39,7 @@ const main = async () => {
 		client.logger.info('Logging in');
 		await client.login(process.env.DISCORD_TOKEN);
 		client.logger.info('logged in');
+		mongoose.set("strictQuery", false);
 		await mongoose
 			.connect(process.env.MONGO, {
 				keepAlive: true
@@ -52,3 +53,4 @@ const main = async () => {
 	}
 };
 main();
+

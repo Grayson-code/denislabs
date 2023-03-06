@@ -18,7 +18,7 @@ export class UserCommand extends Command {
 		if (!queue || !queue.isPlaying) return send(message, { content: '❌ | Nothing is playing right now!' });
 		const currentTrack = queue.currentTrack;
 		const success = queue.node.skip();
-		return void send(message, {
+		return send(message, {
 			content: success ? `✅ | Skipped **${currentTrack}**!` : '❌ | Something went wrong!'
 		});
 	}
