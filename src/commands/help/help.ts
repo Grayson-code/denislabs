@@ -1,6 +1,6 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { Command } from '@sapphire/framework';
-import type { Message } from 'discord.js';
+import type { Message, TextChannel } from 'discord.js';
 import { EmbedBuilder } from 'discord.js';
 
 @ApplyOptions<Command.Options>({
@@ -8,7 +8,7 @@ import { EmbedBuilder } from 'discord.js';
 })
 export class UserCommand extends Command {
 	public async messageRun(message: Message) {
-		return message.channel.send({
+		return (message.channel as TextChannel).send({
 			embeds: [
 				new EmbedBuilder()
 					.setTitle('Denis Help')

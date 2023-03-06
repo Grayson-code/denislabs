@@ -7,7 +7,8 @@ import { send } from '@sapphire/plugin-editable-commands';
 import { sendLoadingMessage } from '../../lib/utils';
 
 @ApplyOptions<Command.Options>({
-	description: 'A basic command'
+	description: 'A basic command',
+	aliases: ['p']
 })
 /**
  * TODO: Fix some bugs!
@@ -15,32 +16,33 @@ import { sendLoadingMessage } from '../../lib/utils';
 export class UserCommand extends Command {
 	public async messageRun(message: Message, args: Args) {
 		if (!message.guild) return;
-		sendLoadingMessage(message)
-		const query: any = await args.rest("string").catch(() => {  return; });
-		const search = await player.search(query, {
-			requestedBy: message.member!.user,
-			searchEngine: QueryType.AUTO,
-		}).catch(this.container.logger.debug);
-		if (!search || !search.tracks.length) return send(message, { content: "❌ | No tracks found!" });
+		if (!message.member?.voice.channel) return;
+		sendLoadingMessage(message);
 
-		const queue = await player.createQueue(message.guild!, {
-            ytdlOptions: {
-                filter: 'audioonly',
-                highWaterMark: 1 << 30,
-                dlChunkSize: 0,
-            },
-            metadata: message.channel
-        });
-		if (!queue.connection) {
-			await queue.connect(message.member!.voice.channel!).catch(() => {
-				player.deleteQueue(message.guild?.id!)
-				return send(message, {content: "❌ | Couldn't join your channel."})
-			});
-		};
+		const query: any = await args.rest('string').catch(() => {
+			return;
+		});
 
-		await send(message, { content: `⏱ | Loading your ${search.playlist ? 'playlist' : 'track'}...` });
-        search.playlist ? queue.addTracks(search.tracks) : queue.addTrack(search.tracks[0]);
-        if (!queue.playing) await queue.play();
-		return;
+		const queue = player.nodes.create(message.guild, {
+			metadata: {
+				channel: message.channel,
+				client: message.guild.members.me,
+				requestedBy: message.member.user
+			},
+			selfDeaf: true,
+			leaveOnEmpty: true,
+			leaveOnEmptyCooldown: 300000,
+			leaveOnEnd: true,
+			leaveOnEndCooldown: 300000
+		});
+		const search = await player.search(query, { searchEngine: QueryType.AUTO });
+		if (!search || !search.tracks.length) return send(message, { content: '❌ | No tracks found!' });
+
+		if (!queue.connection) await queue.connect(message.member.voice!.channel);
+		queue.addTrack(search.tracks);
+
+		await queue.node.play();
+
+		return await send(message, { content: `⏱ | Loading your ${search.playlist ? 'playlist' : 'track'}...` });
 	}
 }

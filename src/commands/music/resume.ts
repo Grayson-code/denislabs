@@ -6,16 +6,17 @@ import { sendLoadingMessage } from '../../lib/utils';
 import { send } from '@sapphire/plugin-editable-commands';
 
 @ApplyOptions<Command.Options>({
-	description: 'A basic command'
+	description: 'A basic command',
+	aliases: ['res']
 })
 export class UserCommand extends Command {
 	public async messageRun(message: Message) {
 		sendLoadingMessage(message);
 
-		const queue = player.getQueue(message.guild?.id!);
+		const queue = await player.nodes.get(message.guild?.id!);
 
-        if (!queue || !queue.playing) return void send(message, { content: '❌ | No music is being played!' });
-        const paused = queue.setPaused(false);
-        return void send(message, { content: paused ? '⏸ | Paused!' : '❌ | Something went wrong!'});
+		if (!queue || !queue.isPlaying) return void send(message, { content: '❌ | No music is being played!' });
+		const paused = queue.node.resume();
+		return send(message, { content: paused ? '⏸ | Paused!' : '❌ | Something went wrong!' });
 	}
 }

@@ -1,6 +1,6 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { Listener, ListenerOptions } from '@sapphire/framework';
-import type { Message } from 'discord.js';
+import type { Message, TextChannel } from 'discord.js';
 import xpSchema from '../db/xpSchema';
 import { EmbedBuilder } from 'discord.js';
 
@@ -17,7 +17,7 @@ export class UserEvent extends Listener {
 					_id: message.author.id,
 					level: 0,
 					xp: 0,
-					coins: 0, 
+					coins: 0
 				});
 			}
 		});
@@ -37,14 +37,12 @@ export class UserEvent extends Listener {
 			data.level += 1;
 			await data.save();
 
-			const embed = new EmbedBuilder()
-				.setColor("Yellow")
-				.setDescription(`<@${message.author.id}>, you have reached level ${data.level}`);
+			const embed = new EmbedBuilder().setColor('Yellow').setDescription(`<@${message.author.id}>, you have reached level ${data.level}`);
 
-			message.channel.send({ embeds: [embed] });
+			(message.channel as TextChannel).send({ embeds: [embed] });
 		} else {
 			data.xp += give;
-			data.coins +=giveCoins;
+			data.coins += giveCoins;
 			data.save();
 		}
 	}

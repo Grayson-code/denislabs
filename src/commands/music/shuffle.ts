@@ -6,20 +6,21 @@ import { sendLoadingMessage } from '../../lib/utils';
 import { send } from '@sapphire/plugin-editable-commands';
 
 @ApplyOptions<Command.Options>({
-	description: 'A basic command'
+	description: 'A basic command',
+	aliases: ['sh']
 })
 export class UserCommand extends Command {
 	public async messageRun(message: Message) {
 		sendLoadingMessage(message);
 
-		const queue = player.getQueue(message.guild?.id!);
+		const queue = await player.nodes.get(message.guild?.id!);
 
-		if (!queue || !queue.playing) return send(message, {content:"❌ | Nothing is playing right now!"});
+		if (!queue || !queue.isPlaying) return send(message, { content: '❌ | Nothing is playing right now!' });
 
-		await queue.shuffle();
+		queue.tracks.shuffle();
 
-        return void send(message, {
-            content: `✅ | Queue has been shuffled!`
-        });
+		return send(message, {
+			content: `✅ | Queue has been shuffled!`
+		});
 	}
 }

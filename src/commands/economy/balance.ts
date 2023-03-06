@@ -1,26 +1,26 @@
 import { sendLoadingMessage } from '../../lib/utils';
 import { ApplyOptions } from '@sapphire/decorators';
-import { Command } from '@sapphire/framework';
+import { Command, Args } from '@sapphire/framework';
 import xpSchema from '../../db/xpSchema';
 import { EmbedBuilder, Message } from 'discord.js';
 import { send } from '@sapphire/plugin-editable-commands';
 @ApplyOptions<Command.Options>({
 	description: 'A basic command',
-	aliases: ["bal"]
+	aliases: ['bal']
 })
 export class UserCommand extends Command {
-	public async messageRun(message: Message) {
+	public async messageRun(message: Message, args: Args) {
 		await sendLoadingMessage(message);
+		const member = await args.pick("member").catch(() => message.member)
+		let res = await xpSchema.findOne({ _id: member!.id });
 
-		let res = await xpSchema.findOne({  _id: message.author.id});
-
-		if (!res) return send(message, {content: "We have encountered a error, please run the command again." });
+		if (!res) return send(message, { content: 'We have encountered a error, please run the command again.' });
 
 		const embed = new EmbedBuilder()
-		.setTitle(`${message.member?.displayName}'s Balance`)
-		.setDescription(`<:pepecoin:1079615867538641057> **Balance**: ${res.coins}`)
-		.setColor("Grey");
+			.setTitle(`${member?.displayName}'s Balance`)
+			.setDescription(`<:pepecoin:1079615867538641057> **Balance**: ${res.coins}`)
+			.setColor('Grey');
 
-		return await send(message, {embeds: [embed]});
+		return await send(message, { embeds: [embed] });
 	}
 }
